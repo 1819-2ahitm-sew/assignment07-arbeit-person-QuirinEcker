@@ -5,31 +5,42 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        String text = readFile("src/main/resources/personen.csv");
-        int lines = getLines("src/main/resources/personen.csv");
-        System.out.println(text);
+        Bewohner[] bewohner = new Bewohner[getLines("src/main/resources/personen.csv")];
+        bewohner = readFile("src/main/resources/personen.csv", bewohner);
+        showBewohner(bewohner);
     }
 
-    public static String readFile(String fileName) {
-        StringBuilder sb = new StringBuilder();
+    private static void showBewohner(Bewohner[] bewohner) {
+        for (int i = 0; i < bewohner.length; i++) {
+            System.out.println(bewohner[i].getVorname() + ";" + bewohner[i].getNachnaem());
+        }
+    }
+
+    private static Bewohner[] readFile(String fileName, Bewohner[] bewohner) {
+        String[] parts;
 
         try(Scanner scanner = new Scanner(new FileReader(fileName))) {
+            int i = 0;
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine());
-                sb.append("\n");
+                parts = scanner.nextLine().split(";");
+                bewohner[i] = new Bewohner(parts[0], parts[1]);
+                i++;
             }
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
-        return sb.toString();
+        return bewohner;
     }
 
-    public static int getLines(String fileName) {
+    private static int getLines(String fileName) {
         int counter = 0;
 
         try(Scanner scanner = new Scanner(new FileReader(fileName))) {
+            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 counter++;
+                scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());

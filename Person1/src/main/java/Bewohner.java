@@ -1,15 +1,30 @@
 public class Bewohner {
-    private String bewohner;
+
     private String vorname;
     private String nachnaem;
 
-    public Bewohner() {}
-
-    public Bewohner(String bewohner) {
-        this.bewohner = bewohner;
+    //region Description
+    public String getVorname() {
+        return vorname;
     }
 
-    public void splitToTwoString() {
-        String[] parts = bewohner.split(";");
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getNachnaem() {
+        return nachnaem;
+    }
+
+    public void setNachnaem(String nachnaem) {
+        this.nachnaem = nachnaem;
+    }
+    //endregion
+
+    public Bewohner() {}
+
+    public Bewohner(String vorname, String nachname) {
+        this.vorname = vorname;
+        this.nachnaem = nachname;
     }
 }
